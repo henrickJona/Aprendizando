@@ -1,0 +1,19 @@
+{
+  "expo": {
+    "name": "Frila",
+    "slug": "Frila",
+    "privacy": "public",
+    "sdkVersion": "36.0.0",
+    "version": "1.0.0",
+    
+    "ios": {
+      "bundleIdentifier": "com.Oblivious.Frila"
+    },
+    "android":{
+      "package": "com.Oblivious.Frila"
+      
+      
+
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "424109114861",
+    "firebase_url": "https://frila-7cc99.firebaseio.com",
+    "project_id": "frila-7cc99",
+    "storage_bucket": "frila-7cc99.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:424109114861:android:f7ee2bdee227d0cd4013e4",
+        "android_client_info": {
+          "package_name": "com.Oblivious.Frila"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "424109114861-sc99kd7dl7tidem1352rn3dee1mt6uil.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8MA2nsfykEoQNpk0Ipve1CLX9HlXviI4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "424109114861-sc99kd7dl7tidem1352rn3dee1mt6uil.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

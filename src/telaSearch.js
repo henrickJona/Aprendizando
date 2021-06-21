@@ -1,5 +1,5 @@
 import React, { Component ,useState,useEffect} from "react";
-import GLOBALS from "../GLOBALS"
+
 import {
   StyleSheet,
   Text,
@@ -14,8 +14,7 @@ import {
   TouchableHighlight,
   Image,
   Alert,
-  TextInput,
-  AsyncStorage,Picker, TouchableWithoutFeedbackBase,ActivityIndicator
+  TextInput,TouchableWithoutFeedbackBase,ActivityIndicator
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { Container, Header, Left, Right, Radio } from "native-base";
@@ -88,12 +87,12 @@ const [aguarda,setAguarda] = useState(false)
             </Text>
             <TouchableOpacity style={{backgroundColor:"#626a7f",width:50,height:50,borderRadius:12,justifyContent:"center"}}>
               <Text style={{fontSize:25,color:"white",textAlign:"center"}}>
-                >5
+                5
               </Text>
             </TouchableOpacity>
             <TouchableOpacity style={{backgroundColor:"#626a7f",width:50,height:50,borderRadius:12,justifyContent:"center"}}>
               <Text style={{fontSize:25,color:"white",textAlign:"center"}}>
-                >10
+                10
               </Text>
             </TouchableOpacity>
           </View>

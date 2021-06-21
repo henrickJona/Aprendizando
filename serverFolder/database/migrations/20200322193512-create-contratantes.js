@@ -43,8 +43,8 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      valor_investido_contratante: {
-        type: Sequelize.DECIMAL(10, 2),
+      pontos: {
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       avaliacao_positiva: {

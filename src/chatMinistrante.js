@@ -30,7 +30,6 @@ import { TextInputMask } from "react-native-masked-text";
 import Loader from "./Loader";
 import axios from "axios";
 import { GiftedChat } from "react-native-gifted-chat";
-import GLOBALS from "../GLOBALS";
 import SocketContext from "./Contexts/SocketContext"
 //let guardaStatus = {}
 
@@ -87,7 +86,7 @@ async function getUser(){
 async function getConfirmado(){
  
 try{
-const response = await axios.get(`${GLOBALS.APP_URL}/confirmado/${idConfirmado}` )
+const response = await axios.get(`${process.env.APP_URL}/confirmado/${idConfirmado}` )
 setConfirmado(response.data)
 //console.log(response.data)
 }catch(error){
@@ -183,7 +182,7 @@ console.log(error)
 
   async function fetchNewMessages(){
     try{
-      const response = await axios.get(`${GLOBALS.APP_URL}/confirmado/${idConfirmado}/mensagem` )
+      const response = await axios.get(`${process.env.APP_URL}/confirmado/${idConfirmado}/mensagem` )
       if(response.data.mensagems.length>listaMsgTodas.length){
 console.log("qaaaaaa")
        
@@ -210,7 +209,7 @@ console.log("qaaaaaa")
  async function  fetchMensagens(){
    
   try{
-    const response = await axios.get(`${GLOBALS.APP_URL}/confirmado/${idConfirmado}/mensagem` )
+    const response = await axios.get(`${process.env.APP_URL}/confirmado/${idConfirmado}/mensagem` )
     listaMsgTodas = response.data.mensagems
     let inverted = listaMsgTodas.reverse()
     listaMsgTodas = inverted
@@ -312,7 +311,7 @@ if(listaMsgAux.length<=0){
    /* if(recuperando){
      console.log("esta recuperando")
     try{
-      const response = await axios.get(`${GLOBALS.APP_URL}/confirmado/${idConfirmado}/mensagem` )
+      const response = await axios.get(`${process.env.APP_URL}/confirmado/${idConfirmado}/mensagem` )
       setListaMensagens(response.data.mensagems)
       let lista = []
       let j = 0
@@ -339,7 +338,7 @@ if(listaMsgAux.length<=0){
           }
    }else{
     try{
-      const response = await axios.get(`${GLOBALS.APP_URL}/confirmado/${idConfirmado}/mensagem` )
+      const response = await axios.get(`${process.env.APP_URL}/confirmado/${idConfirmado}/mensagem` )
       setListaMensagens(response.data.mensagems)
       let lista = []
       let j = 0
@@ -387,7 +386,7 @@ if(listaMsgAux.length<=0){
      
      
       try{
-        const response = await axios.post(`${GLOBALS.APP_URL}/mensagem`,{
+        const response = await axios.post(`${process.env.APP_URL}/mensagem`,{
           texto:mensagem,
   fk_confirmado_id:confirmadoObj.id,
   fk_emissor_id:confirmadoObj.fk_aprendiz_id,
@@ -520,13 +519,13 @@ function goBackk(){
          </TouchableOpacity>
         </View>
         <View style={{width:"70%",alignItems:"center",paddingTop:5,paddingBottom:5}}>
-          <Image style={{width:40,height:40,borderRadius:20}} source={foto?{ uri: foto }:require("../src/default.jpg")}/>
+          <Image style={{width:40,height:40,borderRadius:20}} source={foto?{ uri: foto }:require("../assets/default.jpg")}/>
 <Text>
   {nome}
 </Text>
         </View>
         <View style={{width:"15%",alignItems:"center"}}>
-        <TouchableOpacity style={{width:"100%",justifyContent:"center"}}>
+        <TouchableOpacity style={{width:"100%",justifyContent:"center"}}onPress={()=>navigation.navigate('finalizarAprendiz')} >
          <Icon name="check" size={25} color="#626A7F" style={{alignSelf:"center"}} />
          </TouchableOpacity>
         </View>

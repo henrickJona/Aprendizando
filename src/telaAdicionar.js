@@ -25,7 +25,6 @@ import { TextInput } from "react-native-paper";
 import { TextInputMask } from "react-native-masked-text";
 import Loader from "./Loader";
 import axios from "axios";
-import GLOBALS from "../GLOBALS";
 import io from "socket.io-client";
 //import socket from "../teste"
 /* import socket from "../Socket"; */
@@ -41,7 +40,8 @@ class telaAdicionar extends React.Component {
     aguarda: false,
   };
     componentDidMount() {
-    /* this.socket = io(`${GLOBALS.APP_URL}`, { forceNode: true }); */
+    /* this.socket = io(`${process.env.APP_URL}`, { forceNode: true }); */
+    
     
   }
 
@@ -78,7 +78,7 @@ class telaAdicionar extends React.Component {
       });
       try {
         const resp = await axios.post(
-          `${GLOBALS.APP_URL}/instituicao/${usuario.fk_instituicao_id}/contratante/${usuario.id}/anuncio`,
+          `${process.env.APP_URL}/instituicao/${usuario.fk_instituicao_id}/contratante/${usuario.id}/anuncio`,
           {
             titulo: this.state.titulo,
             descricao: this.state.descricao,
@@ -136,7 +136,7 @@ class telaAdicionar extends React.Component {
             <View style={{ backgroundColor: "#FBFAFB", height: 180 }}>
               <Image
                 style={{ width: "100%", height: "100%" }}
-                source={require("./add.png")}
+                source={require("../assets/add.png")}
                 resizeMode="contain"
               />
             </View>
@@ -190,11 +190,12 @@ class telaAdicionar extends React.Component {
 
                 <TextInput
                   style={estilo.entrada}
-                  label="Investimento"
-                  placeholder={"minimo R$ 5"}
-                  render={(props) => (
+                  label="Pontos"
+                  placeholder={"Mínimo 10"}
+                  keyboardType={"numeric"}
+                  /* render={(props) => (
                     <TextInputMask
-                    placeholder={"Valor Minimo R$ 5"}
+                    placeholder={"Valor Minimo 10"}
                       style={{ paddingTop: 40, paddingLeft: 15 }}
                       type={"money"}
                       value={this.state.investimento}
@@ -202,7 +203,7 @@ class telaAdicionar extends React.Component {
                         this.setState({ investimento })
                       }
                     />
-                  )}
+                  )} */
                   theme={{ colors: { primary: "#3F51B5" } }}
                 />
 

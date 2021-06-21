@@ -25,7 +25,6 @@ import axios from "axios";
 import { round } from "react-native-reanimated";
 import * as Animatable from "react-native-animatable";
 import Moment from "moment";
-import GLOBALS from "../GLOBALS";
 
 const AnuncioDetalhes = ({ route }) => {
   /*
@@ -86,7 +85,7 @@ const AnuncioDetalhes = ({ route }) => {
     console.log(anuncio, "eeeeeeeeeeeeessssssssss");
     try {
       const response = await axios.get(
-        `${GLOBALS.APP_URL}/contratante/${anuncio.fk_contratante_id}`
+        `${process.env.APP_URL}/contratante/${anuncio.fk_contratante_id}`
       );
       console.log(response.data);
       setNome(response.data.nome_contratante);
@@ -117,7 +116,7 @@ const AnuncioDetalhes = ({ route }) => {
     );
     try {
       const response = await axios.post(
-        `${GLOBALS.APP_URL}/contratante/${usuario.id}/anuncio/${anuncio.id}/interessado`
+        `${process.env.APP_URL}/contratante/${usuario.id}/anuncio/${anuncio.id}/interessado`
       );
       alert("você foi adicionado a lista de interessados deste anuncio!!");
       console.log(response.data);
@@ -134,7 +133,7 @@ const AnuncioDetalhes = ({ route }) => {
     );
     try {
       const response = await axios.get(
-        `${GLOBALS.APP_URL}/contratante/${usuario.id}/anuncio/${anuncio.id}/interessado`
+        `${process.env.APP_URL}/contratante/${usuario.id}/anuncio/${anuncio.id}/interessado`
       );
 
       console.log(response.data, "ve aqui");
@@ -160,7 +159,7 @@ const AnuncioDetalhes = ({ route }) => {
     );
     try {
       const response = await axios.delete(
-        `${GLOBALS.APP_URL}/contratante/${usuario.id}/anuncio/${anuncio.id}/interessado`
+        `${process.env.APP_URL}/contratante/${usuario.id}/anuncio/${anuncio.id}/interessado`
       );
       alert("você foi removido da lista de interessados deste anuncio!!");
       console.log(response.data, "jjjjjjjjjjjjjjjjjjjjjjjjjjjj");

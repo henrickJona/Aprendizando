@@ -7,10 +7,8 @@ import {
   ActivityIndicator,
 AsyncStorage,Image,Text
 } from 'react-native';
-import { ceil } from 'react-native-reanimated';
 
 
-import GLOBALS from "../GLOBALS";
 
 
 class splashScreen extends React.Component{
@@ -30,19 +28,19 @@ componentDidMount = async()=>{
 <View style={{backgroundColor:'#0A2745',height:'100%', flexDirection:'column'}}>
     {console.log('entrei')}
     
-    <Image
+{/*     <Image
                             style={{width: '100%',position:"absolute", zIndex:1}}
-                            source={require('./fundo.png')}
+                            source={require('../assets/fundo.png')}
                             resizeMode='contain'
                             />
                             <Image
                             style={{width: '100%',position:'absolute',zIndex:0}}
                             source={require('./fundo.png')}
                             resizeMode='cover' blurRadius={12}
-                            />
+                            /> */}
     
     
-    <Text style={{fontSize:50, color:'white',textAlign:'center',top:'50%'}}>Frila</Text>
+    <Text style={{fontSize:50, color:'white',textAlign:'center',top:'50%'}}>teste</Text>
               
                 
 </View>

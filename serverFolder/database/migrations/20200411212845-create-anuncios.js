@@ -18,8 +18,8 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      investimento: {
-        type: Sequelize.DECIMAL(10, 2),
+      pontos: {
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       ativo: {

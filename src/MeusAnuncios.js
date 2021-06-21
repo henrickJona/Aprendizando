@@ -13,7 +13,6 @@ import {
   TouchableHighlight,
   Image,
   Alert,
-  AsyncStorage,
 } from "react-native";
 import { Container, Header, Left, Right, Radio } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -25,8 +24,7 @@ import axios from "axios";
 import { round } from "react-native-reanimated";
 import * as Animatable from "react-native-animatable";
 import TimeAgo from "react-native-timeago";
-import GLOBALS from "../GLOBALS"
-
+import AsyncStorage from '@react-native-community/async-storage';
 const { width, height } = Dimensions.get("window");
 const MeusAnuncios =({navigation})=> {
  const [firstLoading,setFirstLoading] = useState(true)
@@ -76,28 +74,32 @@ function botaoEditar()  {
         await AsyncStorage.getItem("@CodeFrila:usuario")
       );
       const response = await axios.get(
-        `${GLOBALS.APP_URL}/contratante/${usuario.id}/anuncio`
+        `${process.env.APP_URL}/contratante/${usuario.id}/anuncio`
       );
-
-      for (let i = 0; i < response.data.anuncios.length; i++) {
-        anuncios[i] = response.data.anuncios[i];
+      if(response.data.anuncios.length > 0){
+        for (let i = 0; i < response.data.anuncios.length; i++) {
+          anuncios[i] = response.data.anuncios[i];
+        }
+        console.log(anuncios[0],'qqqqqqqqqqq')
+        console.log(anuncios[0].id, "joanta",response.data.anuncios.length);
+        for (let i = 0; i < response.data.anuncios.length; i++) {
+          const resp = await axios.get(
+            `${process.env.APP_URL}/anuncio/${anuncios[i].id}/interessado`
+          );
+  
+          numeroInteressado[i] = resp.data.interessados.length;
+        }
+  
+        /* for (let i = 0; i < anuncios.length; i++) {
+          console.log(numeroInteressado[i], "hjyfj");
+        } */
+  
+        /*  console.log(response.data); */
+        setNumeroInteressados(numeroInteressado)
+          setListaAnuncios(response.data.anuncios)
       }
-      console.log(anuncios[0].id, "joanta");
-      for (let i = 0; i < response.data.anuncios.length; i++) {
-        const resp = await axios.get(
-          `${GLOBALS.APP_URL}/anuncio/${anuncios[i].id}/interessado`
-        );
 
-        numeroInteressado[i] = resp.data.interessados.length;
-      }
-
-      /* for (let i = 0; i < anuncios.length; i++) {
-        console.log(numeroInteressado[i], "hjyfj");
-      } */
-
-      /*  console.log(response.data); */
-      setNumeroInteressados(numeroInteressado)
-        setListaAnuncios(response.data.anuncios)
+      
       setAguarda(false)
       getAnunciosConfirmados()
       setFirstLoading(false)
@@ -118,7 +120,7 @@ function botaoEditar()  {
         await AsyncStorage.getItem("@CodeFrila:usuario")
       );
       const response = await axios.get(
-        `${GLOBALS.APP_URL}/aprendiz/${usuario.id}`
+        `${process.env.APP_URL}/aprendiz/${usuario.id}`
       );
 
       for (let i = 0; i < response.data.aprendiz.length; i++) {
@@ -127,14 +129,14 @@ function botaoEditar()  {
       console.log(aprendiz[0].id, "joanta");
       for (let i = 0; i < response.data.aprendiz.length; i++) {
         const resp = await axios.get(
-          `${GLOBALS.APP_URL}/ministrante/${aprendiz[i].fk_ministrante_id}`
+          `${process.env.APP_URL}/ministrante/${aprendiz[i].fk_ministrante_id}`
         );
 
         ministrante[i] = resp.data;
       }
       for (let i = 0; i < response.data.aprendiz.length; i++) {
         const resp = await axios.get(
-          `${GLOBALS.APP_URL}/anuncio/${aprendiz[i].fk_anuncio_id}`
+          `${process.env.APP_URL}/anuncio/${aprendiz[i].fk_anuncio_id}`
         );
 dataMesclada={
   id:response.data.aprendiz[i].id,
@@ -176,11 +178,11 @@ dataMesclada={
     
     try {
       const response = await axios.get(
-        `${GLOBALS.APP_URL}/anuncio/${id}/interessado`
+        `${process.env.APP_URL}/anuncio/${id}/interessado`
       );
       for (let i = 0; i < response.data.interessados.length; i++) {
         const resp = await axios.get(
-          `${GLOBALS.APP_URL}/contratante/${response.data.interessados[i].fk_contratante_id}`
+          `${process.env.APP_URL}/contratante/${response.data.interessados[i].fk_contratante_id}`
         );
         interessados[i] = resp.data;
       }
@@ -218,8 +220,8 @@ setAguarda(false)
       const usuario = JSON.parse(
         await AsyncStorage.getItem("@CodeFrila:usuario")
       );
-const response = await axios.post(`${GLOBALS.APP_URL}/anuncio/${anuncioId}/ministrante/${id}/aprendiz/${usuario.id}/confirmado`)
-const respon = await axios.put(`${GLOBALS.APP_URL}/anuncio/${anuncioId}`)
+const response = await axios.post(`${process.env.APP_URL}/anuncio/${anuncioId}/ministrante/${id}/aprendiz/${usuario.id}/confirmado`)
+const respon = await axios.put(`${process.env.APP_URL}/anuncio/${anuncioId}`)
 //aqui notificar quem foi escolhido e quem não foi
 deletaTodosInteressadosNoAnuncioInativo()
 console.log(response)
@@ -240,7 +242,7 @@ console.log(error)
         const usuario = JSON.parse(
           await AsyncStorage.getItem("@CodeFrila:usuario")
         );
-const response = await axios.get(`${GLOBALS.APP_URL}/aprendiz/${usuario.id}`)
+const response = await axios.get(`${process.env.APP_URL}/aprendiz/${usuario.id}`)
 setConfirmadoLista(response.data.aprendiz)
 //console.log(response)
 
@@ -252,7 +254,7 @@ console.log(error)
     try{
     
       
-const response = await axios.delete(`${GLOBALS.APP_URL}/anuncio/${anuncioId}/interessado`)
+const response = await axios.delete(`${process.env.APP_URL}/anuncio/${anuncioId}/interessado`)
 console.log(response)
 
     }catch(error){
@@ -290,7 +292,7 @@ console.log(error)
         <Text style={{fontSize:25,color:"#767c8c",textAlign:"center"}}>
           Nada Encontrado
         </Text>
-<Image source={require("./NadaEncontrado.png")} />
+<Image source={require("../assets/NadaEncontrado.png")} />
       </View>
       
     )

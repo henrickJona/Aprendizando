@@ -13,7 +13,6 @@ import {
   TouchableHighlight,
   Image,
   Alert,
-  AsyncStorage,
   
 } from "react-native";
 import { Container, Header, Left, Right, Radio } from "native-base";
@@ -26,7 +25,7 @@ import axios from "axios";
 import { round } from "react-native-reanimated";
 import * as Animatable from "react-native-animatable";
 import TimeAgo from "react-native-timeago";
-import GLOBALS from "../GLOBALS"
+import AsyncStorage from '@react-native-community/async-storage';
 const moment = require("moment");
 require("moment/locale/pt-br");
 moment.locale("pt-br");
@@ -72,12 +71,12 @@ function botaoEditar()  {
         await AsyncStorage.getItem("@CodeFrila:usuario")
       );
       const response = await axios.get(
-        `${GLOBALS.APP_URL}/contratante/${usuario.id}/interessado`
+        `${process.env.APP_URL}/contratante/${usuario.id}/interessado`
       );
       for (let i = 0; i < response.data.interesses.length; i++) {
 interesses[i] = response.data.interesses[i]
         const resp = await axios.get(
-          `${GLOBALS.APP_URL}/anuncio/${response.data.interesses[i].fk_anuncio_id}`
+          `${process.env.APP_URL}/anuncio/${response.data.interesses[i].fk_anuncio_id}`
         );
       
         
@@ -118,7 +117,7 @@ interesses[i] = response.data.interesses[i]
         await AsyncStorage.getItem("@CodeFrila:usuario")
       );
       const response = await axios.get(
-        `${GLOBALS.APP_URL}/ministrante/${usuario.id}`
+        `${process.env.APP_URL}/ministrante/${usuario.id}`
       );
 
       for (let i = 0; i < response.data.ministrante.length; i++) {
@@ -127,14 +126,14 @@ interesses[i] = response.data.interesses[i]
       console.log(ministrante[0].id, "joanta");
       for (let i = 0; i < response.data.ministrante.length; i++) {
         const resp = await axios.get(
-          `${GLOBALS.APP_URL}/aprendiz/${ministrante[i].fk_aprendiz_id}`
+          `${process.env.APP_URL}/aprendiz/${ministrante[i].fk_aprendiz_id}`
         );
 
         aprendiz[i] = resp.data;
       }
       for (let i = 0; i < response.data.ministrante.length; i++) {
         const resp = await axios.get(
-          `${GLOBALS.APP_URL}/anuncio/${ministrante[i].fk_anuncio_id}`
+          `${process.env.APP_URL}/anuncio/${ministrante[i].fk_anuncio_id}`
         );
         nomeCompleto = aprendiz[i].nome_contratante+" "+aprendiz[i].sobre_nome_contratante
 dataMesclada={
@@ -171,7 +170,7 @@ dataMesclada={
         <Text style={{fontSize:25,color:"#767c8c",textAlign:"center"}}>
           Nada Encontrado
         </Text>
-<Image source={require("./NadaEncontrado.png")} />
+<Image source={require("../assets/NadaEncontrado.png")} />
       </View>
       
     )

@@ -3,24 +3,15 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
-  FlatList,
-  ScrollView,
   TouchableOpacity,
   Dimensions,
-  Keyboard,
-  TouchableWithoutFeedback,
-  TouchableHighlight,
   Image,
-  Alert,
   AsyncStorage,
   Picker,
-  TouchableWithoutFeedbackBase,
   ActivityIndicator,
   SafeAreaView,
-  TextInput,RefreshControl
+  TextInput,
 } from "react-native";
-import { Container, Header, Left, Right, Radio } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { KeyboardAwareScrollView,KeyboardAwareFlatList } from "react-native-keyboard-aware-scroll-view";
 //import { TextInput } from "react-native-paper";
@@ -28,7 +19,6 @@ import { TextInputMask } from "react-native-masked-text";
 import Loader from "./Loader";
 import axios from "axios";
 import { GiftedChat } from "react-native-gifted-chat";
-import GLOBALS from "../GLOBALS";
 import SocketContext from "./Contexts/SocketContext"
 const { width, height } = Dimensions.get("window");
 const chatAprendiz =({navigation,route})=>{
@@ -99,7 +89,7 @@ useLayoutEffect(()=>{
 async function  fetchMensagens(){
 
   try{
-    const response = await axios.get(`${GLOBALS.APP_URL}/confirmado/${idConfirmado}/mensagem` )
+    const response = await axios.get(`${process.env.APP_URL}/confirmado/${idConfirmado}/mensagem` )
     setListaMensagens(response.data.mensagems)
 
     let lista = []
@@ -130,7 +120,7 @@ async function  fetchMensagens(){
         }
   /* if(recuperando){
    try{
-     const response = await axios.get(`${GLOBALS.APP_URL}/confirmado/${idConfirmado}/mensagem` )
+     const response = await axios.get(`${process.env.APP_URL}/confirmado/${idConfirmado}/mensagem` )
      setListaMensagens(response.data.mensagems)
      let lista = []
      let j = 0
@@ -157,7 +147,7 @@ async function  fetchMensagens(){
          }
   }else{
    try{
-     const response = await axios.get(`${GLOBALS.APP_URL}/confirmado/${idConfirmado}/mensagem` )
+     const response = await axios.get(`${process.env.APP_URL}/confirmado/${idConfirmado}/mensagem` )
      setListaMensagens(response.data.mensagems)
      let lista = []
      let j = 0
@@ -195,7 +185,7 @@ async function  fetchMensagens(){
 async function getConfirmado(){
   
 try{
-const response = await axios.get(`${GLOBALS.APP_URL}/confirmado/${idConfirmado}` )
+const response = await axios.get(`${process.env.APP_URL}/confirmado/${idConfirmado}` )
 setConfirmado(response.data)
 //console.log(response.data)
 }catch(error){
@@ -287,7 +277,7 @@ setAtualizando(false)
      
      
       try{
-        const response = await axios.post(`${GLOBALS.APP_URL}/mensagem`,{
+        const response = await axios.post(`${process.env.APP_URL}/mensagem`,{
           texto:mensagem,
   fk_confirmado_id:confirmadoObj.id,
   fk_emissor_id:confirmadoObj.fk_ministrante_id,
@@ -420,13 +410,13 @@ let lista = []
         </TouchableOpacity>
        </View>
        <View style={{width:"70%",alignItems:"center",paddingTop:5,paddingBottom:5}}>
-         <Image style={{width:40,height:40,borderRadius:20}} source={foto?{ uri: foto }:require("../src/default.jpg")}/>
+         <Image style={{width:40,height:40,borderRadius:20}} source={foto?{ uri: foto }:require("../assets/default.jpg")}/>
 <Text>
  {nome}
 </Text>
        </View>
        <View style={{width:"15%",alignItems:"center"}}>
-       <TouchableOpacity style={{width:"100%",justifyContent:"center"}}>
+       <TouchableOpacity style={{width:"100%",justifyContent:"center"}} /* onPress={()=>console.log('tess')} */>
         <Icon name="check" size={25} color="#626A7F" style={{alignSelf:"center"}} />
         </TouchableOpacity>
        </View>

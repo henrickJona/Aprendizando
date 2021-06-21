@@ -1,6 +1,5 @@
 import React, { Component,useEffect,useState,useContext } from "react";
 import {
-  AsyncStorage,
   StyleSheet,
   Text,
   View,
@@ -25,8 +24,8 @@ import axios from "axios";
 import api from "../services/api";
 import * as Google from "expo-google-app-auth";
 import Loader from "./Loader";
-import GLOBALS from "../GLOBALS"
 import AuthContext from "./Contexts/AuthContext"
+import AsyncStorage from '@react-native-community/async-storage';
 const telaInicial=({navigation})=> {
   const {testaLogin} = useContext(AuthContext)
   const [loading,setLoading] =useState(false)
@@ -52,10 +51,10 @@ const telaInicial=({navigation})=> {
     setLoading(true)
     let objeto = { nome: nome, sobrenome: sobrenome, email: email, foto: foto };
     console.log(email,"awui");
-
+    console.log(process.env.APP_URL,'sdsdsdsd')
     try {
-      const resps = await axios.get(
-        `${GLOBALS.APP_URL}/contratante/${email}`
+      const resps = await api.get(
+        `/contratante/${email}`
       );
 
       const { contratante, token } = resps.data;
@@ -119,6 +118,7 @@ const telaInicial=({navigation})=> {
     }
   };
   async function signInWithGoogleAsync  ()  {
+    setLoading(true)
     try {
       const result = await Google.logInAsync({
         androidClientId:
@@ -136,9 +136,11 @@ const telaInicial=({navigation})=> {
         let foto = result.user.photoUrl;
         teste(nome, sobrenome, email, foto);
       } else {
+        setLoading(false)
         return { cancelled: true };
       }
     } catch (e) {
+      setLoading(false)
       return { error: true };
     }
   };
@@ -157,12 +159,12 @@ const telaInicial=({navigation})=> {
         <View style={{ height: "50%" }}>
           <Image
             style={{ width: "100%", height: "100%" }}
-            source={require("./firstScreen.png")}
+            source={require("../assets/firstScreen.png")}
             resizeMode="contain"
           />
         </View>
         <View style={{ height: "20%" }}>
-          <Text style={estilo.Titulo}>Outout</Text>
+          <Text style={estilo.Titulo}>Aprendizando</Text>
           <Text style={estilo.texto}>
             Selecione uma das opções abaixo e entre com sua conta:
           </Text>
@@ -192,7 +194,7 @@ const telaInicial=({navigation})=> {
               >
                 <Image
                   style={{ width: 35, height: 35 }}
-                  source={require("./g.png")}
+                  source={require("../assets/g.png")}
                 />
                 <Text style={estilo.googleTexto}>Entrar com o Google</Text>
               </View>

@@ -1,9 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 8000,
-  "expoServerNgrokUrl": "https://ku-7nc.henrickjona.frila.exp.direct",
-  "packagerNgrokUrl": "https://packager.ku-7nc.henrickjona.frila.exp.direct",
-  "ngrokPid": 4692
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
+  "webpackServerPort": null
 }

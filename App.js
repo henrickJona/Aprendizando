@@ -8,7 +8,6 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
-  AsyncStorage,
 } from "react-native";
 import { createStackNavigator } from "react-navigation-stack";
 import { createSwitchNavigator } from "react-navigation";
@@ -34,7 +33,6 @@ import MeusInteresses from "./src/MeusInteresses";
 import MeusAnuncios from "./src/MeusAnuncios";
 // import ChatComEscolhido from "./src/chatComEscolhido";
 import io from "socket.io-client";
-import GLOBALS from "./GLOBALS";
 
 import Index from "./src/Routes/Index"
 import {AuthProvider} from "./src/Contexts/AuthContext"

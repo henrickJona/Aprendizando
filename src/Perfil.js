@@ -13,7 +13,6 @@ import {
   TouchableHighlight,
   Image,
   Alert,
-  AsyncStorage,
   ImageBackground
 } from "react-native";
 import { Container, Header, Left, Right, Radio } from "native-base";
@@ -26,8 +25,7 @@ import axios from "axios";
 import { round } from "react-native-reanimated";
 import * as Animatable from "react-native-animatable";
 import Moment from "moment";
-import GLOBALS from "../GLOBALS";
-
+import AsyncStorage from '@react-native-community/async-storage';
 const Perfil = ({  }) => {
   /*
   static navigationOpotions = {
@@ -124,14 +122,14 @@ const Perfil = ({  }) => {
       >
         <View style={{ height: "35%", backgroundColor:"#F2F2F7" , borderRadius:12}}>
             <ImageBackground 
-            source={foto?{ uri: foto }:require("./default.jpg")}
+            source={foto?{ uri: foto }:require("../assets/default.jpg")}
           
             style={{ flex: 1, resizeMode: "cover", justifyContent: "center",height:"100%",borderRadius:12 }}
             blurRadius={28}
             imageStyle={{ opacity: 0.8 ,borderRadius:12}}
             >
 <Image
-             source={foto?{ uri: foto }:require("./default.jpg")}
+             source={foto?{ uri: foto }:require("../assets/default.jpg")}
             style={{
               height: 150,
               width: 150,

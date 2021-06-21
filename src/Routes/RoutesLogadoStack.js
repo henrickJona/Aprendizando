@@ -7,6 +7,7 @@ import chatAprendiz from "../chatAprendiz"
 import RoutesLogadoTab from "./RoutesLogadoTab"
 import { createStackNavigator } from '@react-navigation/stack';
 import Perfil from "../Perfil"
+import FinalizarAprendiz from "../FinalizarAprendiz";
 
 const Stack = createStackNavigator();
 
@@ -22,6 +23,7 @@ export default RoutesLogadoStack = ()=> {
             <Stack.Screen options={{headerShown:false}} name="chatMinistrante" component={chatMinistrante}/>
             <Stack.Screen options={{headerShown:false}} name="chatAprendiz" component={chatAprendiz}/>
             <Stack.Screen name="Perfil" component={Perfil}/>
+            <Stack.Screen options={{title:"Finalizar"}} name="finalizarAprendiz" component={FinalizarAprendiz}/>
         </Stack.Navigator>
 
       )

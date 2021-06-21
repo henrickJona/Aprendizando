@@ -8,7 +8,6 @@ import { TextInputMask } from 'react-native-masked-text'
 import Loader from './Loader'
 import axios from 'axios';
 import { round } from 'react-native-reanimated';
-import GLOBALS from '../GLOBALS'
 class telaHistorico extends React.Component {
     static navigationOptions = {
         title: 'histórico',

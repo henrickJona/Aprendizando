@@ -39,7 +39,7 @@ module.exports = {
       telefone_contratante,
       fk_instituicao_id,
       fk_curso_id,
-      valor_investido_contratante: 0.0,
+      pontos: 55,
       avaliacao_positiva: 0,
       avaliacao_negativa: 0,
     });

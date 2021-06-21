@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { StyleSheet, Text, View,SafeAreaView,ScrollView,Image,TouchableOpacity, AsyncStorage, Modal,
+import { StyleSheet, Text, View,SafeAreaView,ScrollView,Image,TouchableOpacity, Modal,
   ActivityIndicator } from 'react-native';
 const Loader = props => {
   
@@ -20,7 +20,7 @@ const Loader = props => {
       onRequestClose={() => {console.log('close modal')}}>
       <View style={styles.modalBackground}>
         <View style={styles.activityIndicatorWrapper}>
-          <ActivityIndicator
+          <ActivityIndicator size={"large"} color="#0000ff"
             animating={loading} />
         </View>
       </View>

@@ -11,7 +11,7 @@ class Contratante extends Model {
         avaliacao_positiva: DataTypes.INTEGER,
         avaliacao_negativa: DataTypes.INTEGER,
         telefone_contratante: DataTypes.STRING,
-        valor_investido_contratante: DataTypes.DECIMAL(10, 2),
+        pontos: DataTypes.INTEGER,
       },
       {
         sequelize,

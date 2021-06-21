@@ -14,7 +14,6 @@ import {
   Image,
   Alert,
   ImageBackground,
-  AsyncStorage,
 } from "react-native";
 import { Container, Header, Left, Right, Radio } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -24,9 +23,9 @@ import { TextInputMask } from "react-native-masked-text";
 import Loader from "./Loader";
 import axios from "axios";
 import { round } from "react-native-reanimated";
-import GLOBALS from "../GLOBALS";
 import AuthContext from "./Contexts/AuthContext"
 import SocketContext from "./Contexts/SocketContext"
+import AsyncStorage from '@react-native-community/async-storage';
 const telaEditar =()=> {
   const {socket} = useContext(SocketContext)
   const[nome,setNome] = useState("")
@@ -83,14 +82,14 @@ const telaEditar =()=> {
           style={{ height: "50%", backgroundColor: "#E2E8F0", elevation: 5 }}
         >
           <ImageBackground
-            source={foto?{ uri: foto }:require("./default.jpg")}
+            source={foto?{ uri: foto }:require("../assets/default.jpg")}
           
             style={{ flex: 1, resizeMode: "cover", justifyContent: "center" }}
             blurRadius={25}
             imageStyle={{ opacity: 0.6 }}
           >
             <Image
-              source={foto?{ uri: foto }:require("./default.jpg")}
+              source={foto?{ uri: foto }:require("../assets/default.jpg")}
               style={{
                 height: 140,
                 width: 140,

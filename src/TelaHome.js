@@ -15,7 +15,6 @@ import {
   TouchableHighlight,
   Image,
   Modal,
-  AsyncStorage,
   SafeAreaView,
   ListItem,
   ActivityIndicator,
@@ -41,8 +40,8 @@ import TimeAgo from "react-native-timeago";
 import Loader from "./Loader";
 import PickerCategorias from "./PickerCategorias";
 import io from "socket.io-client";
-import GLOBALS from "../GLOBALS";
-import socket from "../teste"
+/* import socket from "../teste" */
+import AsyncStorage from '@react-native-community/async-storage';
 import SocketContext from "./Contexts/SocketContext"
 const { width, height } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
@@ -59,7 +58,7 @@ require("moment/locale/pt-br");
 moment.locale("pt-br");
 
 
-/* const socket = io(`${GLOBALS.APP_URL}`, { forceNode: true })  */
+/* const socket = io(`${process.env.APP_URL}`, { forceNode: true })  */
 const TelaHome = ({ navigation })=> {
   const [titulo,setTitulo] = useState("");
   const [descricao,setDescricao] = useState("");
@@ -72,6 +71,7 @@ const TelaHome = ({ navigation })=> {
   //const [anuncios,setAnuncios] = useState([]);
   const [categoriaDeCada,setCategoriaDeCada] = useState("");
   const [nome,setNome] = useState("");
+  const [pontos,setPontos] = useState("");
   const [listaAnuncios,setListaAnuncios] = useState([]);
   const [listaCurso,setListaCurso] = useState([]);
   const [quantidade,setQuantidade] = useState(0);
@@ -139,6 +139,7 @@ inicializaFavorito()
     const usuario = JSON.parse(
       await AsyncStorage.getItem("@CodeFrila:usuario"))
       setNome(usuario.nome_contratante)
+      setPontos(usuario.pontos)
   }
 
  async function getAnuncios() {
@@ -148,7 +149,7 @@ inicializaFavorito()
         await AsyncStorage.getItem("@CodeFrila:usuario")
       );
       const response = await axios.get(
-        `${GLOBALS.APP_URL}/contratante/${usuario.id}/anuncio`
+        `${process.env.APP_URL}/contratante/${usuario.id}/anuncio`
       );
       console.log(response.data.anuncios.length, "tamanho dos anncios");
       if (isEmpty(response.data.anuncios)) {
@@ -193,7 +194,7 @@ inicializaFavorito()
         await AsyncStorage.getItem("@CodeFrila:usuario")
       );
       const response = await axios.get(
-        `${GLOBALS.APP_URL}/contratante/${usuario.id}/interessado`
+        `${process.env.APP_URL}/contratante/${usuario.id}/interessado`
       );
 
       if (isEmpty(response.data.interesses)) {
@@ -240,7 +241,7 @@ inicializaFavorito()
     todosAnuncios = [];
     vetorAuxiliar = [];
     indexAtual = 0;
-    console.log(GLOBALS.APP_URL);
+    console.log(process.env.APP_URL);
     console.log("enterei iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
     const usuario = JSON.parse(
       await AsyncStorage.getItem("@CodeFrila:usuario")
@@ -248,7 +249,7 @@ inicializaFavorito()
     instituicaoAtualId = usuario.fk_instituicao_id;
     try {
       const response = await axios.get(
-        `${GLOBALS.APP_URL}/contratante/${usuario.id}/favorito`
+        `${process.env.APP_URL}/contratante/${usuario.id}/favorito`
       );
       if (response.data.favoritos.length === 1) {
         console.log(
@@ -317,7 +318,7 @@ inicializaFavorito()
 
     try {
       const response = await axios.get(
-        `${GLOBALS.APP_URL}/instituicao/${id}/anuncio`
+        `${process.env.APP_URL}/instituicao/${id}/anuncio`
       );
       let aux = response.data.nome.split("-")[0];
       let tamanho = response.data.anuncios;
@@ -371,7 +372,7 @@ inicializaFavorito()
     console.log(instituicaoAtualId, "instituicao atuallllllllllllll");
     try {
       const response = await axios.get(
-        `${GLOBALS.APP_URL}/instituicao/${instituicaoAtualId}/anuncio`
+        `${process.env.APP_URL}/instituicao/${instituicaoAtualId}/anuncio`
       );
       let aux = response.data.nome.split("-")[0];
       let tamanho = response.data.anuncios;
@@ -407,7 +408,7 @@ if(id === -3){
     );
     try {
       const resposta = await axios.post(
-        `${GLOBALS.APP_URL}/instituicao/${id}/contratante/${usuario.id}/favorito`,
+        `${process.env.APP_URL}/instituicao/${id}/contratante/${usuario.id}/favorito`,
         {}
       );
       //console.log(resposta.data[1], "createdddddddddddddddddddddddd");
@@ -445,7 +446,7 @@ if(id === -3){
 setAguarda(true)
     try {
       const resposta = await axios.delete(
-        `${GLOBALS.APP_URL}/favorito/${id}`,
+        `${process.env.APP_URL}/favorito/${id}`,
         {}
       );
       /* console.log(resposta, "resposta delete"); */
@@ -503,7 +504,7 @@ setAguarda(true)
 
       try {
         const response = await axios.get(
-          `${GLOBALS.APP_URL}/instituicao/${pesquisa}`
+          `${process.env.APP_URL}/instituicao/${pesquisa}`
         );
 setListaInstituicao(response.data)
 setLoading(false)
@@ -546,7 +547,7 @@ setAutoriza(false)
         <Text style={{fontSize:25,color:"#767c8c",textAlign:"center"}}>
           Nada Encontrado
         </Text>
-<Image source={require("./NadaEncontrado.png")} />
+<Image source={require("../assets/NadaEncontrado.png")} />
       </View>
       
     )
@@ -801,6 +802,15 @@ setAutoriza(false)
                     }}
                   >
                     Olá, {nome}
+                   
+                  </Text>
+                  <Text style={{
+                      fontSize: 14,
+                      paddingTop: 5,
+                      paddingLeft: 10,
+                      color: "white",
+                    }} >
+                  Meus Pontos:{pontos}
                   </Text>
                 </View>
                 <View

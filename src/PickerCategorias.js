@@ -2,8 +2,8 @@
 import React, { Component } from 'react';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { StyleSheet, Text, View,SafeAreaView,ScrollView,Image,TouchableOpacity, AsyncStorage, Modal,
-  ActivityIndicator,Picker } from 'react-native';
+import { StyleSheet, Text, View,SafeAreaView,ScrollView,Image,TouchableOpacity, Modal,
+  ActivityIndicator } from 'react-native';
 import api from '../services/api'
 export default class PickerCategorias extends React.Component {
   constructor(props) {

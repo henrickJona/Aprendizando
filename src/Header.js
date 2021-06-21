@@ -72,7 +72,7 @@ export default class Header extends React.Component {
   render () {
     return (
       <View style={{height:270, backgroundColor:'#0A2745',alignItems:"center", justifyContent:'center',paddingTop:20}}>
-                <Image source={require('./default.jpg')} style={{height:120,width:120,borderRadius:60}} />
+                <Image source={require('../assets/default.jpg')} style={{height:120,width:120,borderRadius:60}} />
                 <Text style={{fontSize:20, paddingTop:20, color:'#F6F6F6'}}>
                 {this.state.nome}
                 </Text>

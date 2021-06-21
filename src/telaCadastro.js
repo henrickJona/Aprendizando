@@ -13,20 +13,19 @@ import {
   TouchableHighlight,
   Image,
   Alert,
-  AsyncStorage,
-  Picker,
   TouchableWithoutFeedbackBase,
   ActivityIndicator,
 } from "react-native";
-import { Container, Header, Left, Right, Radio } from "native-base";
+import {Picker as SelectPicker} from '@react-native-picker/picker';
 import Icon from "react-native-vector-icons/FontAwesome";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { TextInput } from "react-native-paper";
 import { TextInputMask } from "react-native-masked-text";
 import Loader from "./Loader";
 import axios from "axios";
-import GLOBALS from "../GLOBALS";
 import AuthContext from "./Contexts/AuthContext"
+import api from '../services/api'
+import AsyncStorage from '@react-native-community/async-storage';
 import io from "socket.io-client";
 /* import socket from "../Socket"; */
  const telaCadastro =({navigation,route})=> {
@@ -84,7 +83,7 @@ const[aguarda,setAguarda] =useState(false)
 
     if (validaFone(telefone) === 1) {
       try {
-        const resp = await axios.post(`${GLOBALS.APP_URL}/contratante/`, {
+        const resp = await api.post(`/contratante/`, {
           nome_contratante: idd.nome,
           sobre_nome_contratante: idd.sobrenome,
           telefone_contratante: telefone,
@@ -96,8 +95,8 @@ const[aguarda,setAguarda] =useState(false)
 
         const { contratante, token } = resp.data;
         try {
-          const resposta = await axios.post(
-            `${GLOBALS.APP_URL}/instituicao/${cursoFkId}/contratante/${contratante.id}/favorito`,
+          const resposta = await api.post(
+            `/instituicao/${cursoFkId}/contratante/${contratante.id}/favorito`,
             {}
           );
           console.log(resposta.data);
@@ -142,8 +141,8 @@ const[aguarda,setAguarda] =useState(false)
     setMostrar(true)
 
     try {
-      const response = await axios.get(
-        `${GLOBALS.APP_URL}/instituicao/${cursoFkId}/curso`
+      const response = await api.get(
+        `/instituicao/${cursoFkId}/curso`
       );
 
       if (isEmpty(response.data)) {
@@ -180,8 +179,8 @@ const[aguarda,setAguarda] =useState(false)
       
 
       try {
-        const response = await axios.get(
-          `${GLOBALS.APP_URL}/instituicao/${pesquisa}`
+        const response = await api.get(
+          `/instituicao/${pesquisa}`
         );
 setListaInstituicao(response.data)
 setLoading(false)
@@ -224,7 +223,7 @@ setAutoriza(false)
   
     } else {
       return listaCurso.map((x, i) => {
-        return <Picker.Item label={x.nome} key={i} value={x.nome} />;
+        return <SelectPicker.Item label={x.nome} key={i} value={x.nome} />;
       });
     }
   };
@@ -256,7 +255,7 @@ function mudaCursoNomeECursoId(value, index){
               <View style={{ backgroundColor: "#FBFAFB", height: 180 }}>
                 <Image
                   style={{ width: "100%", height: "100%" }}
-                  source={require("./register.png")}
+                  source={require("../assets/register.png")}
                   resizeMode="contain"
                 />
               </View>
@@ -315,7 +314,7 @@ function mudaCursoNomeECursoId(value, index){
                     ></TextInput>
                   </TouchableHighlight>
 
-                  <Picker
+                  <SelectPicker
                     enabled={autoriza}
                     selectedValue={cursoNome}
                     onValueChange={(value, index) =>
@@ -324,14 +323,14 @@ function mudaCursoNomeECursoId(value, index){
                     }
                     style={{ height: 70 }}
                   >
-                    <Picker.Item
+                    <SelectPicker.Item
                       color={"#676767"}
                       key={"unselectable"}
                       label={"Selecione Um Curso"}
                       value={0}
                     />
                     {autoriza ? lista() : null}
-                  </Picker>
+                  </SelectPicker>
 
                   <TouchableOpacity style={estilo.botao} onPress={()=>send()}>
                     <Text style={estilo.botaoTexto}>Continuar</Text>
